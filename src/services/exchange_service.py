@@ -1,4 +1,4 @@
-from typing import Dict, Tuple
+﻿from typing import Dict, Tuple
 from src.api.binance_client import BinanceAPI
 from src.api.tt_exchange_client import TTExchangeAPI
 from src.config import DEFAULT_USDT_FEE, DEFAULT_OTHER_CRYPTO_FEE, SUPPORTED_CRYPTOCURRENCIES
@@ -87,7 +87,7 @@ class ExchangeService:
         
         # 計算加密貨幣數量
         crypto_price = self.crypto_prices[target_crypto]
-        crypto_amount = usd_amount / crypto_price  # 用戶獲得的加密貨幣數量保持不變
+        crypto_amount = usd_amount * (1 + fee_rate) / crypto_price
         
         return crypto_amount, self.thb_rate, fee_amount
 

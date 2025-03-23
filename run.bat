@@ -1,35 +1,49 @@
 @echo off
 chcp 65001 > nul
-echo 正在啟動加密貨幣匯率計算工具...
+echo Starting cryptocurrency exchange rate calculator...
 
-REM 檢查虛擬環境是否存在
+REM Use official Python path
+set PYTHON_PATH=C:\Users\PONY\AppData\Local\Programs\Python\Python313\python.exe
+
+REM Check if Python exists
+if not exist "%PYTHON_PATH%" (
+    echo Error: Official Python installation not found
+    echo Please verify Python is installed at %PYTHON_PATH%
+    echo If installed in a different location, edit this batch file to modify the PYTHON_PATH variable
+    pause
+    exit /b 1
+)
+
+REM Display Python version info
+echo Using Python path: %PYTHON_PATH%
+"%PYTHON_PATH%" --version
+echo.
+
+REM Check for virtual environment
 if not exist venv (
-    echo 錯誤：未找到Python虛擬環境
-    echo 請先運行 setup.bat 進行環境設置
+    echo Warning: Virtual environment not found
+    echo Please run setup.bat first to create the virtual environment
     pause
     exit /b 1
 )
 
-REM 檢查.env文件
-if not exist .env (
-    echo 錯誤：未找到.env文件
-    echo 請根據.env.example創建.env文件並配置必要的API密鑰
-    pause
-    exit /b 1
-)
-
-REM 啟動虛擬環境
-call venv\Scripts\activate
+REM Try to run the application
+echo Running application...
+cd /d %~dp0
+call venv\Scripts\activate && python -c "import sys; sys.path.insert(0, '.'); from src.main import main; main()"
 if errorlevel 1 (
-    echo 錯誤：啟動虛擬環境失敗
-    pause
-    exit /b 1
-)
-
-REM 運行應用程序
-python src/main.py
-if errorlevel 1 (
-    echo 程序運行出錯，請檢查錯誤信息
+    echo ============================================
+    echo             Runtime Error
+    echo ============================================
+    echo.
+    echo An error occurred while running the application.
+    echo Check the error message above for details.
+    echo.
+    echo If dependency issues persist, try:
+    echo 1. Deleting the venv directory
+    echo 2. Running setup.bat again
+    echo 3. Running run.bat
+    echo ============================================
     pause
     exit /b 1
 )

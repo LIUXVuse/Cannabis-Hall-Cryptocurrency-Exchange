@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 
 # 加載環境變量
 load_dotenv()

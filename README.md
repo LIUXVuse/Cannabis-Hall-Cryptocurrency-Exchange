@@ -22,19 +22,21 @@
   - 快速計算功能
 
 ## 快速開始
+### 系統要求
+- 必須使用官方Python 3.x（從python.org下載）
+  - 不建議使用Microsoft Store版本的Python（功能受限）
+- 網絡連接（用於API調用）
+
 ### 方法一：使用批次檔案（推薦）
 1. 下載並解壓縮專案檔案
-2. 複製 `.env.example` 為 `.env` 並設置您的Binance API密鑰
+2. 如果尚未安裝官方Python：
+   - 前往[Python官網](https://www.python.org/downloads/)下載並安裝Python 3.x
+   - 安裝時勾選「Add Python to PATH」選項
 3. 雙擊運行 `setup.bat` 進行環境設置（僅首次使用需要）
-4. 雙擊運行 `run.vbs` 啟動應用程序（推薦，無命令行窗口）
-   或運行 `run.bat` 啟動應用程序（會顯示命令行窗口）
+   - 如果出現錯誤，可能需要編輯setup.bat和run.bat中的PYTHON_PATH變量指向您的Python安裝位置
+4. 雙擊運行 `run.bat` 啟動應用程序
 
 ### 方法二：手動安裝
-#### 系統要求
-- Python 3.x
-- 網絡連接（用於API調用）
-- Binance API密鑰（可從[Binance開發者平台](https://www.binance.com/en/my/settings/api-management)獲取）
-
 #### 安裝步驟
 1. 克隆或下載專案到本地
 ```bash
@@ -59,15 +61,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. 配置環境變數
-- 複製 `.env.example` 為 `.env`
-- 編輯 `.env` 文件，填入您的Binance API密鑰：
-  ```
-  BINANCE_API_KEY=your_api_key_here
-  BINANCE_API_SECRET=your_api_secret_here
-  ```
-
-5. 運行應用程序
+4. 運行應用程序
 ```bash
 python src/main.py
 ```
@@ -110,25 +104,31 @@ python src/main.py
 ## 常見問題解答
 ### 1. 系統要求
 - Windows 10或更新版本（需支援UTF-8編碼）
-- Python 3.x
+- 必須使用官方Python 3.x（從python.org下載）
 - 顯示器解析度建議1280x900以上
 
-### 2. 無法啟動程序
-- 確認已安裝Python 3.x
+### 2. Python相關問題
+- 本程式必須使用官方版本的Python，不能使用Microsoft Store版本
+- 如果您看到"Windows Store版本的Python"相關錯誤信息：
+  * 請從[Python官網](https://www.python.org/downloads/)下載並安裝官方版本
+  * 卸載Microsoft Store版本的Python
+  * 確保官方Python已添加到系統PATH環境變量中
+  * 根據需要修改setup.bat和run.bat中的PYTHON_PATH變量
+
+### 3. 無法啟動程序
+- 確認已安裝官方Python 3.x
 - 確認已運行 setup.bat 或完成手動環境設置
-- 確認 .env 文件存在且配置正確
 - 檢查網絡連接是否正常
 - 如果出現亂碼：
   * 確認Windows系統地區設置為"泰國"
   * 確認系統已安裝Microsoft YaHei UI字體
   * 在控制台 -> 地區 -> 管理 -> 更改系統地區設置 -> 勾選"使用Unicode UTF-8提供全球語言支援"
 
-### 2. API錯誤
-- 確認Binance API密鑰配置正確
-- 確認API密鑰具有讀取權限
+### 4. API錯誤
 - 檢查網絡連接是否正常
+- 確認Binance API服務是否可用
 
-### 3. 價格顯示異常
+### 5. 價格顯示異常
 - 刷新頁面重新獲取最新數據
 - 確認網絡連接穩定
 - 檢查Binance API服務是否正常
@@ -138,7 +138,6 @@ python src/main.py
 - ⚠️ 匯率和加密貨幣價格可能存在短暫延遲
 - 🔍 建議在進行實際交易前核實所有計算結果
 - 📊 價格僅供參考，實際交易價格可能因市場波動而變化
-- 🔒 請妥善保管您的API密鑰，不要分享給他人
 
 ## 技術支持
 如遇到技術問題或需要支援，請通過以下方式聯繫：
